@@ -1,0 +1,262 @@
+﻿{
+  "code": 0,
+  "data": {
+    "sdkVersion": "23.1.0.17",
+    "appVersionCode": "V1.01.11(x64)",
+    "appVersionNumber": 10111,
+    "appName": "莱塞思",
+    "clientName": "VideoClientWindows",
+    "localIp": "192.168.2.101",
+    "winScaling": "1.5",
+    "windowNumber": 2,
+    "isConnected": true,
+    "connectionStatusCode": 1,
+    "curRoomKey": "HA81gRliqz",
+    "gatewayPrefixH323": "81",
+    "gatewayPrefixSIP": "80",
+    "isCameraPrivacy": false,
+    "isMicPrivacy": true,
+    "isSpeakerPrivacy": false,
+    "enableRecording": true,
+    "enableEndpointMode": true,
+    "useDefaultLayout": false,
+    "isAutoAssignRenderer": true,
+    "displayGuestVideo": true,
+    "displayGatewayVideo": true,
+    "displaySelfViewInMeeting": false,
+    "web_ui_title": "title_video_system",
+    "web_ui_room_label_display_name": "房间",
+    "web_ui_usage_mode_title_visible": true,
+    "web_ui_module_contacts_visible": true,
+    "web_ui_module_rooms_visible": true,
+    "web_ui_module_callsip323_visible": true,
+    "web_ui_module_profile_visible": false,
+    "web_ui_contact_detail_join_btn_visible": true,
+    "web_ui_create_room_btn_visible": true,
+    "web_ui_logo": "res/img/logo_lss.png",
+    "web_webrtc_site": "https://webrtc.lssvc.cn",
+    "camera1": {
+      "index": 1,
+      "sourceType": 1,
+      "name": "视频源1",
+      "enable": true,
+      "width": 1920,
+      "height": 1080,
+      "resolution": "1080p",
+      "framerate": 60,
+      "resolutionProfile": 0,
+      "framerateProfile": 0,
+      "inUse": "Logitech BRIO$#vid_046d&pid_085e&mi_00#8&627bd6e&0&0000",
+      "list": [
+        "关闭",
+        "HD Pro Webcam C920$#vid_046d&pid_082d&mi_00#8&370f8ac1&0&0000",
+        "Logitech BRIO$#vid_046d&pid_085e&mi_00#8&627bd6e&0&0000"
+      ],
+      "listObj": [
+        {
+          "label": "关闭",
+          "value": "关闭",
+          "disabled": false
+        },
+        {
+          "label": "HD Pro Webcam C920",
+          "value": "HD Pro Webcam C920$#vid_046d&pid_082d&mi_00#8&370f8ac1&0&0000",
+          "disabled": true
+        },
+        {
+          "label": "Logitech BRIO",
+          "value": "Logitech BRIO$#vid_046d&pid_085e&mi_00#8&627bd6e&0&0000",
+          "disabled": false
+        }
+      ]
+    },
+    "camera2": {
+      "index": 2,
+      "sourceType": 2,
+      "name": "视频源2",
+      "enable": true,
+      "width": 1920,
+      "height": 1080,
+      "resolution": "1080p",
+      "framerate": 60,
+      "resolutionProfile": 0,
+      "framerateProfile": 0,
+      "inUse": "HD Pro Webcam C920$#vid_046d&pid_082d&mi_00#8&370f8ac1&0&0000",
+      "list": [
+        "关闭",
+        "HD Pro Webcam C920$#vid_046d&pid_082d&mi_00#8&370f8ac1&0&0000",
+        "Logitech BRIO$#vid_046d&pid_085e&mi_00#8&627bd6e&0&0000"
+      ],
+      "listObj": [
+        {
+          "label": "关闭",
+          "value": "关闭",
+          "disabled": false
+        },
+        {
+          "label": "HD Pro Webcam C920",
+          "value": "HD Pro Webcam C920$#vid_046d&pid_082d&mi_00#8&370f8ac1&0&0000",
+          "disabled": false
+        },
+        {
+          "label": "Logitech BRIO",
+          "value": "Logitech BRIO$#vid_046d&pid_085e&mi_00#8&627bd6e&0&0000",
+          "disabled": true
+        }
+      ]
+    },
+    "camera3": {
+      "index": 3,
+      "sourceType": 3,
+      "name": "视频源3",
+      "enable": true,
+      "width": 1920,
+      "height": 1080,
+      "resolution": "1080p",
+      "framerate": 30,
+      "resolutionProfile": 0,
+      "framerateProfile": 0,
+      "inUse": "关闭",
+      "list": [
+        "关闭",
+        "HD Pro Webcam C920$#vid_046d&pid_082d&mi_00#8&370f8ac1&0&0000",
+        "Logitech BRIO$#vid_046d&pid_085e&mi_00#8&627bd6e&0&0000"
+      ],
+      "listObj": [
+        {
+          "label": "关闭",
+          "value": "关闭",
+          "disabled": false
+        },
+        {
+          "label": "HD Pro Webcam C920",
+          "value": "HD Pro Webcam C920$#vid_046d&pid_082d&mi_00#8&370f8ac1&0&0000",
+          "disabled": true
+        },
+        {
+          "label": "Logitech BRIO",
+          "value": "Logitech BRIO$#vid_046d&pid_085e&mi_00#8&627bd6e&0&0000",
+          "disabled": true
+        }
+      ]
+    },
+    "camera4": {
+      "index": 4,
+      "sourceType": 4,
+      "name": "共享屏幕",
+      "enable": true,
+      "width": 1920,
+      "height": 1080,
+      "resolution": "1080p",
+      "framerate": 30,
+      "resolutionProfile": 0,
+      "framerateProfile": 0,
+      "inUse": "关闭",
+      "list": [
+        "关闭",
+        "Generic PnP Monitor$#XMI3446#5&2d423acc&0&UID261"
+      ],
+      "listObj": []
+    },
+    "camera5": {
+      "index": 5,
+      "sourceType": 5,
+      "name": "共享窗口",
+      "enable": true,
+      "width": 1920,
+      "height": 1080,
+      "resolution": "1080p",
+      "framerate": 30,
+      "resolutionProfile": 0,
+      "framerateProfile": 0,
+      "inUse": "关闭",
+      "list": [
+        "关闭",
+        "莱塞思(133016)",
+        "TangoWin [D:/Develop/Win/TangoWin] – start_share_test.json(329402)",
+        "窗口2(67642)",
+        "DevTools(264052)",
+        "操作窗口(1574450)"
+      ],
+      "listObj": []
+    },
+    "microphones": {
+      "inUse": "Microphone (Realtek(R) Audio)${0.0.1.00000000}.{e766b917-1ae9-4061-80cb-402edde2ff4e}",
+      "list": [
+        "关闭",
+        "Microphone (Realtek(R) Audio)${0.0.1.00000000}.{e766b917-1ae9-4061-80cb-402edde2ff4e}",
+        "麦克风 (HD Pro Webcam C920)${0.0.1.00000000}.{5b4dc101-28e0-434d-9389-273f19846fd7}",
+        "麦克风 (Logitech BRIO)${0.0.1.00000000}.{ed3518fc-18c4-4fba-84bb-dd3e8666ae29}"
+      ]
+    },
+    "speakers": {
+      "inUse": "4 - Mi Monitor (AMD High Definition Audio Device)${0.0.0.00000000}.{052053a6-1021-4d42-bd35-e452bd36fa75}",
+      "list": [
+        "关闭",
+        "4 - Mi Monitor (AMD High Definition Audio Device)${0.0.0.00000000}.{052053a6-1021-4d42-bd35-e452bd36fa75}",
+        "Speakers (Realtek(R) Audio)${0.0.0.00000000}.{ec894384-3a71-43ec-b924-302b43397c47}"
+      ]
+    },
+    "displays": [
+      {
+        "deviceName": "主窗口",
+        "index": 0,
+        "width": 3440,
+        "height": 1334,
+        "maxRenderersNum": 0,
+        "supportedGridLayoutNumber": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          8,
+          9,
+          12,
+          16,
+          20,
+          25
+        ],
+        "forceRenderingNum": 0
+      },
+      {
+        "deviceName": "扩展窗口1",
+        "index": 1,
+        "width": 3440,
+        "height": 1334,
+        "maxRenderersNum": 25,
+        "supportedGridLayoutNumber": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          8,
+          9,
+          12,
+          16,
+          20,
+          25
+        ],
+        "forceRenderingNum": 9
+      }
+    ],
+    "tango": {
+      "isAutoLogin": false,
+      "isAutoAnswer": false,
+      "isLectureModeExcept": false,
+      "server": "https://hrst.lssvc.cn",
+      "serverHostScheme": "http",
+      "username": "lj",
+      "password": "1234",
+      "userHardDeviceList": []
+    },
+    "guest": {
+      "server": "dev.lssvc.cn",
+      "roomKey": "",
+      "displayName": ""
+    }
+  }
+}

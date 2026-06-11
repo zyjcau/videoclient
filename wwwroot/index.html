@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <title>LSS</title>
+
+    <!-- CSS -->
+<!--    <link rel="stylesheet" href="libs/element_ui/element_ui_1.2.0-beta.6.css">-->
+    <link rel="stylesheet" href="res/img.css">
+    <link rel="stylesheet" href="res/ali/iconfont.css">
+    <link rel="stylesheet" href="index.css">
+    <!-- 必要库 -->
+    <script src="libs/jquery-3.1.1.min.js"></script>
+    <script src="libs/md5.js"></script>
+    <script src="libs/socket.io.js"></script>
+    <!--    <script src="libs/layui/layui.js"></script>-->
+    <!-- vue -->
+    <script src="libs/vue/vue.3.2.26.js"></script>
+    <script src="libs/vue/vue-router.4.0.12.js"></script>
+    <script src="libs/vue/httpVueLoader_1.4.2.js"></script>
+    <!-- eui -->
+<!--    <script src="libs/element_ui/element_plus_1.2.0-beta.6.js"></script>-->
+    <link rel="stylesheet" href="libs/element_ui/element-plus@2.3.12_dist_index.css">
+    <script src="libs/element_ui/element-plus@2.3.12_dist_index.full.js"></script>
+    <script src="libs/element_ui/element-plus@2.3.12_dist_locale_zh-cn.js"></script>
+    <script src="libs/element_ui/element-resize-detector.min.js"></script>
+    <!--    <script src="libs/element_ui/element_icon_0.2.4.js"></script>-->
+    <!-- SDK -->
+    <script src="res/language.js"></script>
+    <script src="libs/tango_win.js"></script>
+    <script src="libs/tango-1.61.min.js"></script>
+    <script src="libs/WSAPI.js"></script>
+    <script src="libs/Medical.js"></script>
+
+    <style>
+        html, body ,#app,#router-view{
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+</head>
+<body onbeforeunload="beforeunload()" oncontextmenu=self.event.returnValue=false>
+<div id="app">
+    <router-view id="router-view"></router-view>
+</div>
+<!--app-->
+<script src="index.js"></script>
+</body>
+</html>

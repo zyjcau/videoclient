@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单元测试</title>
+    <script src="../libs/jquery-3.1.1.min.js"></script>
+    <script src="../libs/WSAPI.js"></script>
+</head>
+<body>
+<div id='content'>
+    <input type="file"/>
+</div>
+<script>
+
+    let elements = [{fileId: '123'}, {fileId: '444'}]
+    elements.forEach(e => {
+        console.log(e)
+    })
+
+    var input = document.querySelector('input[type="file"]');
+    var reader = new FileReader();
+
+    input.onchange = function (e) {
+        var file = e.target.files[0];
+        readImageData(file)
+    };
+
+    let imgUrl = 'http://127.0.0.1:8888/getOSFile?file=RDpcT25lRHJpdmVcUGljdHVyZXNc6KeG6aKR5rqQMV8zODQweDIxNjBfMTcxMTQ0NjEwOS5ibXA$'
+    let imageId = imgUrl
+    if (imageId.indexOf('/') !== -1) {
+        imageId = imageId.replaceAll('/', '-')
+    }
+    // console.log('- imageId : ', imageId)
+
+    // $.ajax({
+    //     url: imgUrl,
+    //     dataType: 'jsonp',
+    //     success: resp => {
+    //         console.log('success', resp)
+    //     },
+    //     error: err => {
+    //         console.log('error', err)
+    //     }
+    // })
+    // const resp = await fetch(imgUrl);
+    // const imgData = await resp.blob();
+    // const reader = new FileReader();
+    // reader.readAsDataURL(imgData)
+    // reader.onload = (d) => {
+    //     console.log(d)
+    // }
+
+    function readImageData(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            var img = new Image();
+            img.src = reader.result;
+            img.onload = function () {
+                console.log(img)
+
+                var width = img.width;
+                var height = img.height;
+
+                console.log('Width:', width);
+                console.log('Height:', height);
+            };
+        };
+    }
+
+    byteStringToArrayBuffer = (byteString) => {
+        const buffer = new ArrayBuffer(byteString.length);
+        const bufferView = new Uint8Array(buffer);
+        for (let i = 0, len = byteString.length; i < len; i++) {
+            bufferView[i] = byteString.charCodeAt(i);
+        }
+        return buffer;
+    };
+    
+    let filePath = imgUrl
+    if (filePath.indexOf('getOSFile') !== -1) {
+        let p = filePath.substring(filePath.indexOf('=') + 1, filePath.length)
+        console.log('p', p)
+        p = p.replace('$', '=')
+        p = p.replace('|', '/')
+        filePath = decodeURIComponent(escape(window.atob(p)))
+    }
+    console.log('filePath', filePath)
+
+</script>
+</body>
+</html>

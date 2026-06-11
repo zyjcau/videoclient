@@ -1,0 +1,153 @@
+@font-face {
+  font-family: "fontiFamily"; /* Project id 3055500 */
+  src: url('iconfont.woff2?t=1694750401188') format('woff2'),
+       url('iconfont.woff?t=1694750401188') format('woff'),
+       url('iconfont.ttf?t=1694750401188') format('truetype'),
+       url('iconfont.svg?t=1694750401188#fontiFamily') format('svg');
+}
+
+[class^="el-icon-tango"], [class*=" el-icon-tango"] /*这里有空格*/
+
+{
+  font-family: "fontiFamily" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fontiFamily {
+  font-family: "fontiFamily" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.el-icon-tangorepair:before {
+  content: "\e61c";
+}
+
+.el-icon-tangoshare:before {
+  content: "\e624";
+}
+
+.el-icon-tangowhiteboard:before {
+  content: "\e6af";
+}
+
+.el-icon-tangoarchives:before {
+  content: "\e604";
+}
+
+.el-icon-tangolayoutgrid:before {
+  content: "\e64b";
+}
+
+.el-icon-tangolayoutlecture:before {
+  content: "\e6a7";
+}
+
+.el-icon-tangorecordingstop:before {
+  content: "\e634";
+}
+
+.el-icon-tangorecordingstart:before {
+  content: "\e652";
+  color: red;
+}
+
+.el-icon-tangodelete:before {
+  content: "\e601";
+}
+
+.el-icon-tangoarrow_right:before {
+  content: "\e603";
+}
+
+.el-icon-tangolayout:before {
+  content: "\e655";
+}
+
+.el-icon-tangofullscreen:before {
+  content: "\ec13";
+}
+
+.el-icon-tangofavorite:before {
+  content: "\e666";
+}
+
+.el-icon-tangochat:before {
+  content: "\e60e";
+}
+
+.el-icon-tangohangup:before {
+  content: "\e602";
+}
+
+.el-icon-tangoscreenshare:before {
+  content: "\e746";
+}
+
+.el-icon-tangocameramute:before {
+  content: "\eca5";
+}
+
+.el-icon-tangocameralock:before {
+  content: "\eca5";
+  color: #8a8a8a;
+}
+
+.el-icon-tangocameraopen:before {
+  content: "\eca6";
+}
+
+.el-icon-tangomicopen:before {
+  content: "\ea0a";
+}
+
+.el-icon-tangomicmute:before {
+  content: "\ea0b";
+}
+
+.el-icon-tangomiclock:before {
+  content: "\ea0b";
+  color: #8a8a8a;
+}
+
+.el-icon-tangospeakeropen:before {
+  content: "\e80e";
+}
+
+.el-icon-tangospeakerclose:before {
+  content: "\e810";
+}
+
+.el-icon-tangocontact:before {
+  content: "\e622";
+}
+
+.el-icon-tangocall:before {
+  content: "\e94f";
+}
+
+.el-icon-tangovideo_comm:before {
+  content: "\e6fc";
+}
+
+.el-icon-tangofangdajing:before {
+  content: "\e617";
+}
+
+.el-icon-tangoshezhi:before {
+  content: "\e600";
+}
+
+.el-icon-tangolianxiren:before {
+  content: "\e61f";
+}
+
+.el-icon-tangofangjian:before {
+  content: "\e62e";
+}
+

@@ -1,0 +1,42 @@
+﻿@startmindmap
+'https://plantuml.com/mindmap-diagram
+
+caption 绿色表示已经添加同步锁机制
+title 引起布局变化的函数
+
+* 布局状态变化事件
+** 用户触发
+***[#yellow] StartRenderingLocalCamera
+***[#yellow] StopRenderingLocalCamera
+***[#yellow] StartRenderingLocalVirtualSource
+***[#yellow] StopRenderingLocalVirtualSource
+***[#yellow] 固定主画面
+***[#lightgreen] 开关自动布局
+***[#lightgreen] 切换强制布局数
+***[#lightgreen] VideoHttpService - SetCustomLayoutMode（入会时初始布局模式、手动切换布局）
+** 系统触发
+*** 远端源
+****[#lightgreen] OnRemoteCameraAdded
+****[#lightgreen] OnRemoteCameraRemoved
+****[#lightgreen] OnRemoteWindowShareAdded
+****[#lightgreen] OnRemoteWindowShareRemoved
+*** 语音激励
+****[#lightgreen] OnLoudestParticipantChanged
+*** 参会人
+****[#lightgreen] OnParticipantsChanged
+
+
+
+header
+My super header
+endheader
+
+center footer My super footer
+
+legend right
+* 绿色表示已经添加同步锁机制
+* 黄色表示未添加锁（UI线程直接调用，如果锁会导致UI卡死）
+endlegend
+
+
+@endmindmap

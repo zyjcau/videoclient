@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <title>LSS</title>
+
+    <!--    <link rel="stylesheet" href="libs/layui/css/layui.css">-->
+    <link rel="stylesheet" href="../res/img.css">
+    <link rel="stylesheet" href="../res/ali/iconfont.css">
+    <link rel="stylesheet" href="../index.css">
+    <!-- 必要库 -->
+    <script src="../libs/jquery-3.1.1.min.js"></script>
+    <script src="../libs/md5.js"></script>
+    <script src="../libs/socket.io.js"></script>
+    <!--    <script src="libs/layui/layui.js"></script>-->
+    <!-- vue -->
+    <script src="../libs/vue/vue.3.2.26.js"></script>
+    <script src="../libs/vue/vue-router.4.0.12.js"></script>
+    <script src="../libs/vue/httpVueLoader_1.4.2.js"></script>
+    <!-- eui -->
+    <!--    <link rel="stylesheet" href="../libs/element_ui/element_ui_1.2.0-beta.6.css">-->
+    <!--    <script src="../libs/element_ui/element_plus_1.2.0-beta.6.js"></script>-->
+    <link rel="stylesheet" href="../libs/element_ui/element-plus@2.3.12_dist_index.css">
+    <script src="../libs/element_ui/element-plus@2.3.12_dist_index.full.js"></script>
+    <script src="../libs/element_ui/element-resize-detector.min.js"></script>
+    <!--    <script src="libs/element_ui/element_icon_0.2.4.js"></script>-->
+    <!-- SDK -->
+    <script src="../res/language.js"></script>
+    <script src="../libs/tango_win.js"></script>
+    <script src="../libs/tango-1.61.min.js"></script>
+    <script src="../libs/WSAPI.js"></script>
+    <script src="../libs/Medical.js"></script>
+
+    <style>
+        html, body, #app, #router-view {
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+</head>
+<body onbeforeunload="beforeunload()" oncontextmenu=self.event.returnValue=false>
+<div id="app">
+    <router-view id="router-view"></router-view>
+</div>
+<!--app-->
+<script>
+    let web_version = '1.0'
+
+    const tangoWin = new TangoWin();
+    console.log(`open by cef : ${tangoWin.openByClient}`);
+    console.log(`launch by params : ${tangoWin.launchAndJoin}`, tangoWin.launchParams)
+
+    const wsapi = new WSAPI();
+
+    //控制从视频退回到欢迎页时不再触发自动加入
+    let isAutoJoinNecessary = true;
+
+    function onload() {
+        // checkProxy()
+    }
+
+    function beforeunload() {
+        //todo 停止预览摄像头
+    }
+
+    //----------------------------------Vue------------------------------------
+    const app = Vue.createApp({})
+    const router = VueRouter.createRouter({
+        history: VueRouter.createWebHashHistory(),
+        routes: [
+            {path: '/', name: 'Welcome', component: httpVueLoader('PageWelcome.vue')},
+            {path: '/video', name: 'Video', component: httpVueLoader('../vue/PageVideo.vue')},
+            {path: '/test', name: 'Test', component: httpVueLoader('test.vue')},//test code
+        ]
+    })
+    registerComponent(app, 'settings-layout', '../vue/ModuleSettingsLayout.vue')
+    registerComponent(app, 'text-chat', '../vue/ModuleChat.vue')
+    app.use(router)
+    app.use(ElementPlus)
+    app.use(elementResizeDetectorMaker)
+    app.mount('#app')
+
+    if (tangoWin.getQueryParam('isTest') === '1') router.push('/test')//load test page
+    //----------------------------------Vue------------------------------------
+
+
+    let elm_loading;
+
+    function showLoading(msg) {
+        elm_loading = ElementPlus.ElLoading.service({
+            lock: true,
+            text: msg,
+            background: 'rgba(0, 0, 0, 0.7)',
+        })
+    }
+
+    function closeLoading() {
+        if (elm_loading) elm_loading.close();
+    }
+
+    function debounce(fn, delay, isImmediate) {
+        var timer = null;  //初始化timer，作为计时清除依据
+        return function () {
+            let context = this;  //获取函数所在作用域this
+            let args = arguments;  //取得传入参数
+            clearTimeout(timer);
+            if (isImmediate && timer === null) {
+                //时间间隔外立即执行
+                fn.apply(context, args);
+                timer = 0;
+                return;
+            }
+            timer = setTimeout(function () {
+                fn.apply(context, args);
+                timer = null;
+            }, delay);
+        }
+    }
+
+    function registerComponent(vueApp, vueComponentName, vueFile) {
+        let c = httpVueLoader(vueFile)
+        c().then(p => {
+            vueApp.component(vueComponentName, p)
+        })
+    }
+
+</script>
+</body>
+</html>

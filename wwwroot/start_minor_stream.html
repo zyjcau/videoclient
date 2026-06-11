@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="libs/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="index.css">
+    <!-- 必要库 -->
+    <script src='libs/jquery-3.1.1.min.js'></script>
+    <script src='libs/bootstrap/bootstrap.bundle.js'></script>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            font-family: "YouYuan";
+        }
+
+        #container {
+            height: 100%;
+        }
+
+        .card-input-element + .card {
+            height: calc(36px + 2 * 1rem);
+            color: var(--primary);
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border: 2px solid transparent;
+            border-radius: 4px;
+        }
+
+        .card-input-element + .card:hover {
+            cursor: pointer;
+        }
+
+        .card-input-element:checked + .card {
+            border: 2px solid var(--primary);
+            -webkit-transition: border .3s;
+            -o-transition: border .3s;
+            transition: border .3s;
+        }
+
+        .card-input-element:checked + .card::after {
+            content: '\e5ca';
+            color: #AFB8EA;
+            font-family: 'Material Icons';
+            font-size: 24px;
+            -webkit-animation-name: fadeInCheckbox;
+            animation-name: fadeInCheckbox;
+            -webkit-animation-duration: .5s;
+            animation-duration: .5s;
+            -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @-webkit-keyframes fadeInCheckbox {
+            from {
+                opacity: 0;
+                -webkit-transform: rotateZ(-20deg);
+            }
+            to {
+                opacity: 1;
+                -webkit-transform: rotateZ(0deg);
+            }
+        }
+
+        @keyframes fadeInCheckbox {
+            from {
+                opacity: 0;
+                transform: rotateZ(-20deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotateZ(0deg);
+            }
+        }
+    </style>
+</head>
+<body onload="onload()">
+<div id="container" class="container">
+    <div class="row">
+        <div class="col align-self-end">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onCloseClick()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div id="content" class="w-100" style="margin-top: 32px;padding: 16px">
+
+    </div>
+</div>
+
+<script>
+
+    let cameraIndex;
+    let curDeviceId;
+
+    function onload() {
+        cameraIndex = getQueryParam('type')
+        try {
+            let json = MinorStreamSettingsJsProxy.getSystemStatusJson();
+            console.log(json)
+            initSelections(json)
+        } catch (e) {
+            console.log(e)
+            $.ajax({//加载测试数据
+                type: 'get',
+                dataType: 'json',
+                url: 'libs/test/start_share_test.json',
+                success: resp => {
+                    initSelections(resp)
+                }
+            })
+        }
+    }
+
+    function initSelections(json) {
+        let obj = typeof json == 'object' ? json : JSON.parse(json)
+        console.log(obj)
+
+        //初始化显示器共享
+        // let contentDiv = $('#content')
+        $('#content').html('')
+        let camera = obj.data.camera1
+        if (cameraIndex === '2') {
+            camera = obj.data.camera2
+        } else if (cameraIndex === '3') {
+            camera = obj.data.camera3
+        }
+        camera.listObj.forEach(function (val, index) {
+            console.log(val)
+            let value = val.value
+            let label = val.label
+            let disabled = val.disabled
+
+            let isSelected = value === camera.inUse ? 'selected' : ''
+            // let display = val.split('$')[0]
+
+            $('#content').append(generateRadio('radio', value, label, isSelected, disabled))
+        })
+        $('#content')
+            .append(`<br><button id="btn_start" type="button" class="btn btn-success" disabled onclick="onStartClick()">确定</button>`)
+        setRadioChangedListener('radio', function () {
+            console.log(`selected -> `, this.value)
+            curDeviceId = this.value
+            $('#btn_start').attr('disabled', false)
+        })
+    }
+
+    function generateRadio(group, value, display, checked, disabled) {
+        return `<label>
+                <input type="radio" name="${group}" class="card-input-element d-none" value="${value}" ${checked ? 'checked="true"' : ''} ${disabled ? 'disabled' : ''}>
+                <span class="card card-body bg-light d-flex flex-row justify-content-between align-items-center" ${disabled ? 'style="color: rgb(128,128,128)"' : ''}>
+                    ${display} ${disabled ? '(已使用)' : ''}
+                </span>
+            </label>`
+    }
+
+    function setRadioChangedListener(radioName, callback) {
+        $(`input[type=radio][name=${radioName}]`).change(callback)
+    }
+
+    function onStartClick() {
+        console.log(`onStartClick id: %s`, curDeviceId)
+        try {
+            MinorStreamSettingsJsProxy.assignCamera(cameraIndex == '2' ? 2 : 3, curDeviceId)
+            onCloseClick()
+        } catch (e) {
+            console.log('选择失败', e)
+        }
+    }
+
+    function onCloseClick() {
+        window.location.href = 'about:blank'
+    }
+
+    function getQueryParam(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
+        }
+        return (false);
+    }
+
+
+</script>
+</body>
+</html>

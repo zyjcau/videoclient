@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>莱塞思</title>
+    <script src='libs/jquery-3.1.1.min.js'></script>
+    <script src="libs/qrcode.min.js"></script>
+    <style>
+        body {
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+            background: url("res/img/background_img.jpg") no-repeat;
+            background-size: 100% 100%;
+            font-family: "YouYuan";
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        p {
+            font-size: xx-large;
+        }
+
+        span {
+            font-size: large;
+        }
+
+        #div_content {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .div_logo {
+            flex: 1;
+            padding-right: 80px;
+            box-sizing: border-box;
+            text-align: right;
+            border-right: 3px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .div_detail {
+            flex: 2;
+            padding-left: 120px;
+            text-align: left;
+            box-sizing: border-box;
+            /*border-left: 1px solid #a0a0a0;*/
+        }
+
+        #div_title_bar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: auto;
+        }
+
+        #date_time {
+            float: right;
+            color: white;
+            margin-right: 16px;
+        }
+
+        .terminal_text {
+            position: relative;
+            width: 45%;
+            text-align: left;
+            /*border: 1px solid red;*/
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -99;
+        }
+
+        .terminal_btn {
+            background: #4eb5e5;
+            /*border: 1px solid;*/
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 15px;
+            border: none;
+            border-bottom: 4px solid #2b8bc6;
+            color: #ffffff;
+            margin-top: 5px;
+        }
+
+        .custom_button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            box-sizing: border-box;
+            padding: 8px 16px;
+            background-color: rgba(0, 0, 0, 0.1);
+            color: white;
+            border: none;
+            cursor: pointer;
+            user-select: none;
+            font-size: 14px;
+        }
+
+        .custom_button:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .custom_button:active {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .showPromptDiv {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 90%);
+        }
+    </style>
+</head>
+<body oncontextmenu=self.event.returnValue=false>
+<!--<video width="100%" autoplay loop>-->
+<!--    <source src="res/video/background_video.mp4" type="video/mp4">-->
+<!--</video>-->
+<!--<img style="width: 100%;height: 100%;margin: 0;padding: 0;z-index: -1" src="res/img/background_img.jpg"/>-->
+<div id="div_content">
+    <div class="div_logo">
+        <div style="display:inline-block;width: 150px;height: 150px;background-color: rgba(255,255,255,0.5);border-radius: 50%">
+            <img style="width: 120px;height: 120px;margin: 16px" src="res/img/logo_lss.png" alt="lssvc"/>
+        </div>
+    </div>
+    <div class="div_detail">
+        <div class="terminal_text">
+            <span>可以通过下面三种方式控制终端设备</span>
+            <ul style="margin-top: 42px">
+                <li style="margin-bottom: 16px"><span id="tx_web_service_url">xxx</span></li>
+                <li style="margin-bottom: 16px">
+                    <span>方式二：直接打开 <button onclick="onOpenAppClick()" class="terminal_btn">终端控制窗口</button></span>
+                </li>
+                <li><span>方式三：扫描二维码使用App控制</span></li>
+            </ul>
+            <div style="width: 100%;text-align: center">
+                <div id="div_qrcode" style="display:inline-block;width: 90px;height: 90px"></div>
+            </div>
+            <div style="position: absolute;right: 8px;bottom:8px">
+                <button class="custom_button" onclick="onOpenTencentRoomsClick()">腾讯会议</button>
+                <button class="custom_button" onclick="onOpenSettingClick()">设置</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="div_title_bar">
+    <p id="date_time"></p>
+</div>
+<div id="div_camera_closed_prompt" class="hidden">
+    <div style="color: white;width: 480px">
+        运行腾讯会议Rooms时会在本软件种停用摄像头，以防止设备占用。
+        <br>要恢复使用本软件的话，请先确认腾讯会议Rooms已经退出，之后点击“确定”按钮以恢复使用。
+        <br><br>
+        <button class="terminal_btn" onclick="onStartCameraClick()">&nbsp;&nbsp;确定&nbsp;&nbsp;</button>
+    </div>
+</div>
+<script>
+
+    let result = '...';
+
+    try {
+        result = JSProxy.getWebServiceUrl()
+    } catch (e) {
+        result = undefined
+        console.log(e)
+    }
+
+    if (result) {
+        $('#tx_web_service_url').html(`方式一：在浏览器打开链接 ${result}`)
+        generateQCode()
+    } else {
+        $('#tx_web_service_url').html(`方式一：获取管理地址失败，请联系管理员！`)
+    }
+
+    function generateQCode() {
+        // $('#a_android').attr('href', 'android.html');
+        new QRCode(document.getElementById("div_qrcode"), {
+            text: result,
+            width: 90,
+            height: 90,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    }
+
+    function onOpenAppClick() {
+        try {
+            JSProxy.openAppWindow()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    function onOpenSettingClick() {
+        try {
+            JSProxy.openSettingWindow()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    function onOpenTencentRoomsClick() {
+        // console.log('isCameraOpened',JSProxy.isCameraOpened())
+        try {
+            // if (JSProxy.isCameraOpened() === true) {
+                $('#div_camera_closed_prompt').removeClass('hidden').addClass('showPromptDiv')
+                JSProxy.closeCamera()
+            // }
+            JSProxy.openTencentRooms()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    function onStartCameraClick() {
+        try {
+            $('#div_camera_closed_prompt').addClass('hidden').removeClass('showPromptDiv')
+            JSProxy.openCamera()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    function getDate() {
+        var time = new Date()
+        var Years = time.getFullYear()
+        var Month = time.getMonth() + 1
+        var Day = time.getDate()
+        var Hour = time.toLocaleTimeString('chinese', {hour12: false})
+        $('#date_time').html(`<test>${Years}年${Month}月${Day}日 ${Hour}</test>`)
+    }
+
+    getDate()
+
+    setInterval(function () {
+        getDate()
+    }, 1000)
+</script>
+</body>
+</html>

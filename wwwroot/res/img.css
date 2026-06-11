@@ -1,0 +1,74 @@
+﻿.callStart{
+    background-size: 30px 30px;
+    background-image: url(icon/callStart.png);
+}
+.callEnd{
+    background-size: 30px 30px;
+    background-image: url(icon/callEnd.png);
+}
+.callNone{
+    background-size: 30px 30px;
+    background-image: url(icon/callNone.png);
+}
+
+.video_invite {
+    background-image: url(icon/video_invite.png);
+}
+
+.video_invite_cant {
+    background-image: url(icon/video_invite_cant.png);
+}
+
+.checked{
+    background-size: 30px 30px;
+    background-image: url(icon/icon_checked.png);
+}
+
+.unchecked{
+    background-size: 30px 30px;
+    background-image: url(icon/icon_unchecked.png);
+}
+
+.garbage{
+    background-size: 30px 30px;
+    background-image: url(icon/icon_garbage.png);
+}
+
+.dot_gray{
+    background-size: 30px 30px;
+    background-image: url(icon/icon_dot_gray.png);
+}
+
+.dot_green{
+    background-size: 30px 30px;
+    background-image: url(icon/icon_dot_green.png);
+}
+
+.icon_contacts{
+    background-size: 30px 30px;
+    background-image: url(icon/contacts.svg);
+}
+
+.icon_rooms{
+    background-size: 30px 30px;
+    background-image: url(icon/rooms.svg);
+}
+
+.icon_menu_close{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+    background-image: url(icon/menu_close.png);
+}
+.icon_menu_open{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+    background-image: url(icon/menu_open.png);
+}
+
+.icon_small{
+    /*border: null;*/
+    width: 30px;
+    height: 30px;
+}

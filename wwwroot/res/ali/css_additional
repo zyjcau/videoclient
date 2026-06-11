@@ -1,0 +1,9 @@
+﻿[class^="el-icon-tango"], [class*=" el-icon-tango"] /*这里有空格*/
+
+{
+    font-family: "fontiFamily" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

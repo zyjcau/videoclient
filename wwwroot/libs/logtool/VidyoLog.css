@@ -1,0 +1,57 @@
+body {
+	font-size: 0.675rem;
+}
+#stickyTop{
+	position:   fixed;
+	top:        0;
+	right:      0;
+	left:       0;
+	z-index:    1000;
+	background: white;
+}
+#timeLine {
+	height:     150px;
+	width:      100%;
+	margin-top: 5px;
+}
+#logTable {
+	position:   fixed;
+	bottom:     0;
+	left:       0;
+	right:      0;
+	overflow:   scroll;
+}
+table.logTable {
+	table-layout: fixed;
+}
+th.logIndex {
+	width: 50px;
+}
+td.logTime {
+	width: 80px;
+}
+td.logGoTo {
+	width: 10px;
+}
+
+.inlineBlock {
+	display: inline-block;
+}
+.xmlBodyObj {
+	color: rgb(28, 20, 155);
+	font-weight:  bold;
+}
+.xmlValueto, .xmlValuedsturi {
+	color:  brown;
+}
+.xmlValuefrom, .xmlValuesrcuri {
+	color:  blue;
+}
+.SENT, .LMI_LOGLEVEL_SENT, .VIDYO_LOGLEVEL_SENT {
+	white-space: pre-wrap;
+	font-family: monospace;
+}
+.RECEIVED, .LMI_LOGLEVEL_RECEIVED, .VIDYO_LOGLEVEL_RECEIVED {
+	white-space: pre-wrap;
+	font-family: monospace;
+}

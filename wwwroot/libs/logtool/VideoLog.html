@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>性能分析工具</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="bootstrap.min.css" />
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="./jquery-3.2.1.min.js"></script>
+	<script src="./popper.min.js"></script>
+	<script src="./bootstrap.bundle.min.js"></script>
+	<script src="./jquery.jsonview.1.2.3.min.js"></script>
+	<link href="./jquery.jsonview.1.2.3.min.css" rel="stylesheet" type="text/css" >
+	<link href="VidyoLog.css" rel="stylesheet" type="text/css" >
+	<script src="VidyoLog.js"></script>
+	<script src="./Chart.bundle.2.7.1.min.js"></script>
+	<script type="text/javascript">
+		function VidyoLogViewer() {
+			var logServers = []; /* store servers */
+			var serverId = 1;
+			var searchString = "";
+			var vidyoLog;
+
+			this.Init = function(containerDivId) {
+
+				function InitialLayout(containerDivId) {
+					vidyoLog = new VidyoLog("rootElement");
+
+					$("#fileLog").bind('input propertychange', function() {
+						vidyoLog.ProcessLogFile($(this).val());
+						$(this).val("");
+					});
+					$("#serverLog").click(function(e){
+						AddServer($("#serverLogInput").val(), $("#serverLogInput").val());
+					});
+					$("#filterLog").keyup(function(e){
+						var code = (e.keyCode ? e.keyCode : e.which);
+						if(code == 13) { //Enter keycode
+							var value = $(this).val();
+							var valueTrim = value.slice(0,-1);
+							$(this).val(valueTrim);
+							vidyoLog.SetServerSideFilter(valueTrim);
+						}
+					});
+					$("#searchLog").click(function(){
+						vidyoLog.Search($("#searchLogInput").val());
+						return false;
+					});
+				}
+
+				function AddServer(serverName, serverHOST) {
+					var html = '<a class="dropdown-item" id="serverIDRemove-' + serverId + '" href="#"><button type="button" id="serverIDRemoveButton-' + serverId + '" class="btn btn-secondary btn-sm">x</button> ' + serverName + '</a>';
+
+					$("#logServers").append(html);
+					$("#serverIDRemoveButton-" + serverId).data("serverHOST", serverHOST);
+					$("#serverIDRemoveButton-" + serverId).data("serverId", serverId);
+					$("#serverIDRemoveButton-" + serverId).click(function() {
+						var serverId = $(this).data("serverId");
+						var serverHOST = $(this).data("serverHOST");
+						$("#serverIDRemove-" + serverId).remove();
+						vidyoLog.RemoveServer(serverHOST);
+					});
+					vidyoLog.AddServer(serverName, serverHOST);
+					serverId++;
+				}
+				InitialLayout(containerDivId);
+				AddServer("localhost:7776", "localhost:7776");
+
+			}
+		};
+
+		$(document).ready(function()
+		{
+			vidyoLogViewer = new VidyoLogViewer();
+			vidyoLogViewer.Init("rootElement");
+		});
+	</script>
+</head>
+<body>
+<!-- Image and text -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+	<a class="navbar-brand" href="#">
+		<img src="logo_lss.png" width="30" height="30" class="d-inline-block align-top" alt="">
+		性能分析工具
+	</a>
+	<div class="collapse navbar-collapse" id="navbarNavDropdown">
+		<ul class="navbar-nav">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					上传文件
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="#">
+						<div class="form-group">
+							<textarea class="form-control mr-sm-2" type="search" placeholder="Paste file here" aria-label="Upload" id="fileLog" ></textarea>
+						</div>
+					</a>
+					<div class="dropdown-item" id="processing"></div>
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					被监控端
+				</a>
+				<div class="dropdown-menu" id="logServers" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="#">
+						<form class="form-inline inlineBlock">
+							<input class="form-control mr-sm-2" type="search" placeholder="设备IP地址 : 端口" aria-label="Upload" id="serverLogInput">
+							<button class="btn btn-success my-2 my-sm-0" type="submit" id="serverLog">添加</button>
+						</form>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<form class="form-inline">
+		<input class="form-control mr-sm-2" type="search" placeholder="正则表达式, 空可以重置" aria-label="Search" id="searchLogInput">
+		<button class="btn btn-success my-2 my-sm-0" type="submit" id="searchLog">搜索</button>
+	</form>
+</nav>
+<div id="rootElement"></div>
+<!-- <div id="rootElement" style="width:100%;height:100%">Hello, world!</div>
+-->
+</body>
+</html>

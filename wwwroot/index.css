@@ -1,0 +1,20 @@
+﻿div {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.enable_select {
+    -webkit-user-select: text;!important;
+    -moz-user-select: text;!important;
+    -ms-user-select: text;!important;
+    user-select: text;!important;
+}
+
+.visible{
+    visibility: visible;
+}
+.invisible{
+    visibility: hidden;
+}
