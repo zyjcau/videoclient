@@ -48,7 +48,7 @@ let text = {
     },
     'zh': {
         'language_setting':'语言',
-        'title': '莱塞思',
+        'title': '远程会诊',
         'title_china':'人民法院提讯系统',
         'title_video_system':'在线视频系统',
         'menu': '菜单',

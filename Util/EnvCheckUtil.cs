@@ -89,6 +89,16 @@ namespace VideoClient.Util
 
         public static bool IsInstallVc(string[] keywords)
         {
+            string runtimeArchitecture;
+            if (TryGetVcRuntimeArchitecture(
+                    keywords,
+                    out runtimeArchitecture
+                ) &&
+                IsInstallVcRuntime14OrLater(runtimeArchitecture))
+            {
+                return true;
+            }
+
             List<string> lists = new List<string>();
             RegistryKey key = Registry.LocalMachine;
             string str = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
@@ -105,7 +115,13 @@ namespace VideoClient.Util
             if (lists.Count > 0)
             {
                 string vcName = null;
-                foreach (var s1 in lists.Where(x => keywords.All(x.Contains)))
+                foreach (var s1 in lists.Where(x =>
+                             keywords.All(keyword =>
+                                 x.IndexOf(
+                                     keyword,
+                                     StringComparison.OrdinalIgnoreCase
+                                 ) >=
+                                 0)))
                 {
                     vcName = s1;
                     break;
@@ -116,6 +132,87 @@ namespace VideoClient.Util
             }
 
             return false;
+        }
+
+        private static bool TryGetVcRuntimeArchitecture(string[] keywords, out string architecture)
+        {
+            architecture = null;
+            if (keywords == null)
+            {
+                return false;
+            }
+
+            if (keywords.Any(x => string.Equals(
+                    x,
+                    "x64",
+                    StringComparison.OrdinalIgnoreCase
+                )))
+            {
+                architecture = "x64";
+                return true;
+            }
+
+            if (keywords.Any(x => string.Equals(
+                    x,
+                    "x86",
+                    StringComparison.OrdinalIgnoreCase
+                )))
+            {
+                architecture = "x86";
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsInstallVcRuntime14OrLater(string architecture)
+        {
+            string subKey = @"SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\" + architecture;
+            return IsInstallVcRuntime14OrLater(
+                       RegistryView.Registry64,
+                       subKey
+                   ) ||
+                   IsInstallVcRuntime14OrLater(
+                       RegistryView.Registry32,
+                       subKey
+                   );
+        }
+
+        private static bool IsInstallVcRuntime14OrLater(RegistryView registryView, string subKey)
+        {
+            try
+            {
+                using (RegistryKey baseKey = RegistryKey.OpenBaseKey(
+                           RegistryHive.LocalMachine,
+                           registryView
+                       ))
+                using (RegistryKey runtimeKey = baseKey.OpenSubKey(subKey))
+                {
+                    if (runtimeKey == null)
+                    {
+                        return false;
+                    }
+
+                    object installedValue = runtimeKey.GetValue("Installed");
+                    object majorValue = runtimeKey.GetValue("Major");
+                    int installed;
+                    int major;
+                    return int.TryParse(
+                               installedValue?.ToString(),
+                               out installed
+                           ) &&
+                           installed == 1 &&
+                           int.TryParse(
+                               majorValue?.ToString(),
+                               out major
+                           ) &&
+                           major >= 14;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private static void GetRegistry

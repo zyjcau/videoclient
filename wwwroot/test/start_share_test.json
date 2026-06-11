@@ -4,7 +4,7 @@
     "sdkVersion": "23.1.0.17",
     "appVersionCode": "V1.01.11(x64)",
     "appVersionNumber": 10111,
-    "appName": "莱塞思",
+    "appName": "远程会诊",
     "clientName": "VideoClientWindows",
     "localIp": "192.168.2.101",
     "winScaling": "1.5",
@@ -172,7 +172,7 @@
       "inUse": "关闭",
       "list": [
         "关闭",
-        "莱塞思(133016)",
+        "远程会诊(133016)",
         "TangoWin [D:/Develop/Win/TangoWin] – start_share_test.json(329402)",
         "窗口2(67642)",
         "DevTools(264052)",
