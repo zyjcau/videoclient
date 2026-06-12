@@ -6,3 +6,6 @@
 /.vs
 /obj
 *.user
+/.idea/.idea.VidyoConnector12/.idea
+/bin/x64/Debug
+/packages
