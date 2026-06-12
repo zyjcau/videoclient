@@ -39,30 +39,30 @@
   </el-container>
 </template>
 <script>
-module.exports = {
-  mounted() {
-    tangoWin.getSystemStatusJson({
-      success: resp => {
-        this.version = `${this.version}_26.6.6`
+	module.exports = {
+	mounted() {
+	tangoWin.getSystemStatusJson({
+	success: resp => {
+	this.version = `${this.version}_(${tangoWin.sdkVersion})`
 
-        this.isGuestJoinVisible = !tangoWin.enableEndpointMode
+	this.isGuestJoinVisible = !tangoWin.enableEndpointMode
 
-        this.res.logo = tangoWin.web_ui_logo
-        this.res.system_name = tangoWin.appName
+	this.res.logo = tangoWin.web_ui_logo
+	this.res.system_name = tangoWin.appName
 
-        if (tangoWin.launchAndLogin) {//参数启动时
-          this.server = tangoWin.launchParams.server
-          this.username = tangoWin.launchParams.username
-          this.password = tangoWin.launchParams.password
-          this.isAutoLogin = true
-        } else {
-          this.server = tangoWin.tango.server
-          this.username = tangoWin.tango.username
-          this.password = tangoWin.tango.password
-          this.isAutoLogin = tangoWin.tango.isAutoLogin
-        }
+	if (tangoWin.launchAndLogin) {//参数启动时
+	this.server = tangoWin.launchParams.server
+	this.username = tangoWin.launchParams.username
+	this.password = tangoWin.launchParams.password
+	this.isAutoLogin = true
+	} else {
+	this.server = tangoWin.tango.server
+	this.username = tangoWin.tango.username
+	this.password = tangoWin.tango.password
+	this.isAutoLogin = tangoWin.tango.isAutoLogin
+	}
 
-        if (tangoWin.isAutoLoginNecessary && this.isAutoLogin) {
+	if (tangoWin.isAutoLoginNecessary && this.isAutoLogin) {
           showLoading()
           setTimeout(() => {
             this.login()
