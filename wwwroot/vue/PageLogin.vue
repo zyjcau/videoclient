@@ -43,7 +43,7 @@ module.exports = {
   mounted() {
     tangoWin.getSystemStatusJson({
       success: resp => {
-        this.version = `${this.version}_(${tangoWin.sdkVersion})`
+        this.version = `${this.version}_26.6.6`
 
         this.isGuestJoinVisible = !tangoWin.enableEndpointMode
 
